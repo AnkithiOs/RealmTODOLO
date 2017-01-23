@@ -40,7 +40,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var realm: Realm!
     
     
-    var priorities:[UIColor] = [.yellow, .orange, .red]
+    var priorities:[UIColor] = [.green,.yellow,.red ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +116,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(alertController, animated: true, completion: nil)
     }
     
+    func editItem(item:Task){
+        let alertController = UIAlertController(title: "Rename Task", message: "Enter Task Name", preferredStyle: .alert)
+        var alertTextField: UITextField!
+        alertController.addTextField { textField in
+            alertTextField = textField
+            textField.placeholder = "Edit.."
+        }
+        alertController.addAction(UIAlertAction(title: "Edit", style: .default) { _ in
+            guard let text = alertTextField.text , !text.isEmpty else { return }
+            
+            let items = self.items
+            try! items.realm?.write {
+                item.text = text
+            }
+            self.filteredItems = items
+        })
+        present(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: UITableView
     
     func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
@@ -127,6 +146,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.delegate = self
         let item = filteredItems[indexPath.row]//items[indexPath.row]
         cell.textLabel?.text = item.text
+        cell.contentView.backgroundColor = item.completed ? UIColor.red : UIColor.white
         cell.textLabel?.alpha = item.completed ? 0.5 : 1
         return cell
     }
@@ -166,21 +186,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: TableViewCell Delegate Function(s) implimentation
     
     func cellDidClickEdit(cell: TvTaskCell){
-        if(priorities.contains(cell.priorityIndicator.backgroundColor!)){
-            if(cell.priorityIndicator.backgroundColor == priorities.last){
-                cell.priorityIndicator.backgroundColor = priorities.first
-            }else{
-                var i = priorities.index(of: cell.priorityIndicator.backgroundColor!)! + 1
-                cell.priorityIndicator.backgroundColor = priorities[i]
-            }
-        }
+        let item = self.items[(tableView.indexPath(for: cell)?.row)!]
+
+        editItem(item: item)
+        
         //let item = self.items[(tableView.indexPath(for: cell)?.row)!]
         //item.priority = priorities.index(of: cell.priorityIndicator.backgroundColor!)!
     }
     
+    func cellDidClickPriorityEdit(cell: TvTaskCell){
+        print("clicked")
+         if(priorities.contains(cell.priorityIndicator.backgroundColor!)){
+         if(cell.priorityIndicator.backgroundColor == priorities.last){
+         cell.priorityIndicator.backgroundColor = priorities.first
+         }else{
+         var i = priorities.index(of: cell.priorityIndicator.backgroundColor!)! + 1
+         cell.priorityIndicator.backgroundColor = priorities[i]
+         }
+         }
+ 
+    }
     
     
-    // MARK: SearchBar Delegate Functions: 
+    // MARK: SearchBar Delegate Functions:
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let text = searchBar.text
@@ -220,22 +248,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 @objc protocol TvTaskCellDelegate {
     @objc optional func cellDidClickEdit(cell: TvTaskCell)
+    @objc optional func cellDidClickPriorityEdit(cell: TvTaskCell)
     
 }
 
 class TvTaskCell: UITableViewCell{
     weak var delegate: TvTaskCellDelegate?
     
-    @IBOutlet var priorityIndicator: UIView!
+    @IBOutlet var priorityIndicator: UIButton!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        priorityIndicator.backgroundColor = UIColor.orange
+        priorityIndicator.backgroundColor = UIColor.yellow
         layoutIfNeeded()
         setNeedsLayout()
     }
     
+    @IBAction func editPriority(_ sender: Any) {
+        delegate?.cellDidClickPriorityEdit!(cell: self)
+    }
+    /*
+    @IBAction func editPriority(_ sender: Any){
+        delegate?.cellDidClickPriorityEdit!(cell: self)
+    }*/
     @IBAction func editAction(_ sender: Any) {
         delegate?.cellDidClickEdit!(cell: self)
     }

@@ -31,19 +31,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAH-3N-4LH">
-                                            <rect key="frame" x="321" y="24" width="30" height="30"/>
-                                            <state key="normal" title="Edit"/>
-                                            <connections>
-                                                <action selector="editAction:" destination="ZOx-iY-ckj" eventType="touchUpInside" id="EzW-Yz-fh5"/>
-                                            </connections>
-                                        </button>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="an1-jf-gn9">
-                                            <rect key="frame" x="298" y="31.5" width="15" height="15"/>
-                                            <color key="backgroundColor" red="0.96022169499999999" green="0.40216025550000001" blue="0.075003007799999993" alpha="1" colorSpace="calibratedRGB"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLl-Iu-O8z">
+                                            <rect key="frame" x="336" y="32.5" width="15" height="15"/>
+                                            <color key="backgroundColor" red="1" green="0.92689044330000003" blue="0.34690626470000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="SQM-hS-TfF"/>
-                                                <constraint firstAttribute="width" constant="15" id="cB5-H3-OAQ"/>
+                                                <constraint firstAttribute="height" constant="15" id="Hau-BT-wpw"/>
+                                                <constraint firstAttribute="width" constant="15" id="yPW-mW-TuG"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -53,17 +46,34 @@
                                                     <real key="value" value="7.5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                        </view>
+                                            <connections>
+                                                <action selector="editPriority:" destination="ZOx-iY-ckj" eventType="touchUpInside" id="In2-PV-tTS"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAH-3N-4LH">
+                                            <rect key="frame" x="16" y="59" width="60" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="3dl-0A-mof"/>
+                                                <constraint firstAttribute="width" constant="60" id="AtU-Ag-iBb"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <state key="normal" title="edit">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="editAction:" destination="ZOx-iY-ckj" eventType="touchUpInside" id="EzW-Yz-fh5"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="OAH-3N-4LH" firstAttribute="leading" secondItem="an1-jf-gn9" secondAttribute="trailing" constant="8" id="4Sh-J8-mdp"/>
-                                        <constraint firstItem="OAH-3N-4LH" firstAttribute="centerY" secondItem="nay-HK-qB2" secondAttribute="centerY" id="7xw-Ha-wE6"/>
-                                        <constraint firstItem="an1-jf-gn9" firstAttribute="centerY" secondItem="OAH-3N-4LH" secondAttribute="centerY" id="HXg-dj-1aQ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="OAH-3N-4LH" secondAttribute="trailing" constant="16" id="mtG-b4-gFf"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="nLl-Iu-O8z" secondAttribute="trailing" constant="16" id="2ew-Xf-Lk7"/>
+                                        <constraint firstAttribute="bottom" secondItem="OAH-3N-4LH" secondAttribute="bottom" id="AP6-3K-zSY"/>
+                                        <constraint firstItem="OAH-3N-4LH" firstAttribute="leading" secondItem="nay-HK-qB2" secondAttribute="leading" constant="16" id="YCN-ap-36x"/>
+                                        <constraint firstItem="nLl-Iu-O8z" firstAttribute="centerY" secondItem="nay-HK-qB2" secondAttribute="centerY" id="h28-ni-yRE"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="priorityIndicator" destination="an1-jf-gn9" id="NTo-RM-oTf"/>
+                                    <outlet property="priorityIndicator" destination="nLl-Iu-O8z" id="ik8-JR-PK2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
